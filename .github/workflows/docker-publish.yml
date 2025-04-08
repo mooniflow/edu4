@@ -31,8 +31,10 @@ jobs:
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: ghcr.io/${{ github.repository }}
-          tags: ${{ github.event.inputs.name }} 
-      
+          tags: |
+            type=ref,event=tag     # 릴리스 태그 (ex: v1.0.0)
+            type=raw,value=latest  # 항상 latest도 포함
+
       - name: Build and push Docker images
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
